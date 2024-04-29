@@ -63,7 +63,7 @@ footer i{
 
 .compromiso-container {
   text-align: center;
-  width: 30%;
+  
   padding: 20px;
 }
 
@@ -112,7 +112,7 @@ footer i{
 /* Estilos para cada testimonio individual */
 .testimonio-container {
   text-align: center;
-  width: 30%;
+  
 }
 
 /* Estilos para el comentario del cliente */
@@ -236,7 +236,7 @@ left: -2800px;
 	margin-bottom: 15px;
     line-height: 1.2;
 }
-.textoc { ///** particular para contacto**// 
+.textoc { /** particular para contacto**/ 
 font-size: 25px;
 }
 
@@ -364,11 +364,7 @@ height: 70vh;
     -webkit-transition: all ease .5s;
 }
 
-.cctt{
 
-	
-	
-}
 /***********animaciondela***********/
 .dela{
 -webkit-animation-delay: 2.7s;
@@ -482,9 +478,7 @@ color: white;
 	padding-top: 7%;
 }
 /*****************footer**/
-.zindex{
-	z-index: 
-}
+
 .piee{
 color: white;
 background: linear-gradient(rgb(97, 169, 184), rgb(227, 242, 244));
