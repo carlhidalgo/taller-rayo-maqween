@@ -112,4 +112,29 @@ function validateFormReserva() {
 
 
 
-
+	$(document).ready(function() {
+		// Reemplaza 'your_api_key' con tu clave API de OpenWeatherMap
+		var apiKey = 'a4a334d9aee54dc41211d403964ea7cc';
+	
+		// Define la ciudad para la que deseas obtener el clima
+		var city = 'Viña del Mar';
+	
+		// Construye la URL para la API de OpenWeatherMap
+		var apiUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + apiKey;
+	
+		// Realiza una solicitud GET a la API de OpenWeatherMap
+		$.get(apiUrl, function(response) {
+			// Extrae la temperatura actual (en grados Kelvin)
+			var temperatureInKelvin = response.main.temp;
+	
+			// Convierte la temperatura a Celsius
+			var temperatureInCelsius = Math.round(temperatureInKelvin - 273.15);
+	
+			// Extrae la descripción del clima
+			var weatherDescription = response.weather[0].description;
+	
+			// Actualiza los elementos HTML con la temperatura y la descripción del clima
+			$('#temperature').text('Temperature: ' + temperatureInCelsius + '°C');
+			$('#weather').text('Weather: ' + weatherDescription);
+		});
+	});

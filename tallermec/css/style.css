@@ -669,6 +669,20 @@ height: 100%;
     margin: 20px 0px;
     text-transform: uppercase;
 }
+/**************************clima*****************************/
+#weatherInfo {
+  background-color: #f0f0f0;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+  text-align: center;
+}
+
+#weatherInfo p {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
 
 /**media******/
 
