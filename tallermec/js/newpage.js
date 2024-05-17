@@ -28,7 +28,18 @@ $(window).on('load', function(){
 				return true;
 			}
 		
-////////////////// contacto///////////////////////////	
+//////////////////reserva///////////////////////////	
+
+var select = document.getElementById("anioSelect");
+    var year = new Date().getFullYear();
+    var earliestYear = 1950;
+
+    for(var i = year; i >= earliestYear; i--){
+        var option = document.createElement("option");
+        option.text = i;
+        option.value = i;
+        select.appendChild(option);
+    }
 	
 function validateFormReserva() {
 	var nombre = $("#nombreInput").val();
