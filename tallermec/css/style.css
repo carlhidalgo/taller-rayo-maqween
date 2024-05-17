@@ -452,27 +452,25 @@ animation-duration: 0.9s;
  margin-left: -15px; 
 }
 
-.hh{
+.propbtn{
     text-transform: uppercase;
     font-size: 15px;
     font-weight: 200;
     padding: 10px;
     margin: 0;
     -webkit-transition: all ease .5s;
-	width: 100%;
+
 color: white;
 	background-color: rgba(0, 171, 171, 255);
 		border-color: rgba(0, 171, 171, 255);
 }
-.hh:hover{
+.propbtn:hover{
 	transition: .2s;
 	background-color: #efb810;
 	border-color: #efb810;
 	
 }
-.cuerpof{
-	position:relative;
-}
+
 /**contacto**/
 .padt2{
 	padding-top: 7%;
@@ -714,22 +712,6 @@ height: 100%;
     margin-bottom: 15px;
 }
 
-.btn-primary {
-    background-color: #007bff;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
-.btn-primary:hover {
-    background-color: #0069d9;
-}
 
 
 /**media******/
@@ -1040,69 +1022,3 @@ background-size: 180%;
   }
   
 
-
-/*****carlos
-  .contacto {
-    font-family: 'Open Sans', sans-serif;
-    min-height: 130vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-  }
-
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-  }
-  .h2c {
-    
-    font-size: 35px;
-    color: #333;
-  }
-  label {
-    font-size: 15px;
-    color: #283629;
-    font-weight: 600;
-    margin-bottom: 15px;
-  }
-  input, textarea {
-    padding: 17px 25px;
-    border-radius: 25px;
-    margin-bottom: 20px;
-    background-color: #eddff0;
-    border: 2px solid #f0faf1;
-    color: #283629;
-    outline: none;
-  }
-  input::placeholder, textarea::placeholder {
-    color: #b5cab6;
-  }
-  .form-txt {
-    
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: space-between;
-    text-align: center;
-  }
-  .form-txt a {
-    color: #1b7721;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none
-  }
-  .btn {
-    font-size: 16px;
-    color: #ffffff;
-    border: 0;
-    border-radius: 25px;
-    background-color: #51d94c;
-    box-shadow: 0 0 20px rgba(25, 254, 0, 0.4);
-    cursor: pointer;
-  }
-  .btn:hover {
-    background-color: #50e04b;
-  }
-
-***/

@@ -29,7 +29,7 @@ $(window).on('load', function(){
 			}
 		
 //////////////////reserva///////////////////////////	
-
+/*
 var select = document.getElementById("anioSelect");
     var year = new Date().getFullYear();
     var earliestYear = 1950;
@@ -38,9 +38,9 @@ var select = document.getElementById("anioSelect");
         var option = document.createElement("option");
         option.text = i;
         option.value = i;
-        select.appendChild(option);
+        select.appendChild(option); 
     }
-	
+	*/
 function validateFormReserva() {
 	var nombre = $("#nombreInput").val();
 	var apellidos = $("#apellidosInput").val();
@@ -99,29 +99,7 @@ function validateFormReserva() {
 
 }
 
-//////////////////barra de contacto///////////////////////////	
-	var v = 48;
- 	$(".legend").click(function(){
-	if (v ==48){ 
-	    v = 480;
-		$("#wrapper-formulario").height(v);
-	} 
-	else{
-		v = 48;
-    	$("#wrapper-formulario").height(v);
-	}});
-	
-	$("#onecontact").click(function(){
-	if (v ==48){ 
-	    v = 480;
-		$("#wrapper-formulario").height(v);
-	} 
-	else{
-		v = 48;
-    	$("#wrapper-formulario").height(v);
-	}}); 
-
-
+// API
 
 	$(document).ready(function() {
 		// Reemplaza 'your_api_key' con tu clave API de OpenWeatherMap
@@ -149,3 +127,32 @@ function validateFormReserva() {
 			$('#weather').text('Weather: ' + weatherDescription);
 		});
 	});
+	
+	
+	
+//////////////////barra de contacto///////////////////////////	
+	var v = 48;
+ 	$(".legend").click(function(){
+	if (v ==48){ 
+	    v = 480;
+		$("#wrapper-formulario").height(v);
+	} 
+	else{
+		v = 48;
+    	$("#wrapper-formulario").height(v);
+	}});
+	
+	$("#onecontact").click(function(){
+	if (v ==48){ 
+	    v = 480;
+		$("#wrapper-formulario").height(v);
+	} 
+	else{
+		v = 48;
+    	$("#wrapper-formulario").height(v);
+	}}); 
+
+
+	
+	
+	
