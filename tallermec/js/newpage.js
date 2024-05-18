@@ -3,6 +3,9 @@
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 
+
+
+
 /////////////// CARRUSEL
 
 
@@ -15,19 +18,36 @@ $(window).on('load', function(){
 ////////////////// contacto///////////////////////////	
 	
 		
-			function validateFormCotacto() {
-				var name = $('#name').val();
-				var email = $('#email').val();
-				var phone = $('#phone').val();
-				var message = $('#message').val();
-				if (name == "" || email == "" || phone == "" || message == "") {
-					alert("Todos los campos deben estar llenos");
-					return false;
-				}
+function validateFormCotacto() {
+	var name = $('#name').val();
+	var email = $('#email').val();
+	var phone = $('#phone').val();
+	var message = $('#message').val();
+	if (name == "" || email == "" || phone == "" || message == "") {
+		alert("Todos los campos deben estar llenos");
+		return false;
+	}
+	if (nombre.length >= 3 || nombre.length > 21) {
+		alert("El nombre debe tener entre 3 y 20 caracteres.");
+		return false;
+	}
+	var emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	if (!email.match(emailFormat) ) {
+		alert("Por favor, ingrese un correo electrónico válido.");
+		return false;
+	}
+	var phoneFormat = /^\d+$/;
+	if (!phone.match(phoneFormat)) {
+		alert("Por favor, ingrese un número de teléfono válido.");
+		return false;
+	}
+	if (message.length > 100) {
+        alert("El mensaje debe tener un máximo de 100 caracteres.");
+        return false;
+    }
+	return true;
+}
 
-				return true;
-			}
-		
 //////////////////reserva///////////////////////////	
 /*
 var select = document.getElementById("anioSelect");
@@ -41,6 +61,21 @@ var select = document.getElementById("anioSelect");
         select.appendChild(option); 
     }
 	*/
+$(document).ready(function() {
+    var $select = $("#anioSelect");
+    var year = new Date().getFullYear();
+    var earliestYear = 1950;
+    var options = "";
+
+    for(var i = year; i >= earliestYear; i--){
+        options += `<option value="${i}">${i}</option>`;
+    }
+
+    $select.html(options);
+});
+
+
+	
 function validateFormReserva() {
 	var nombre = $("#nombreInput").val();
 	var apellidos = $("#apellidosInput").val();
