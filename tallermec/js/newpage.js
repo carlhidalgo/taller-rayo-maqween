@@ -3,6 +3,9 @@
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 
+
+
+
 /////////////// CARRUSEL
 
 
@@ -15,20 +18,63 @@ $(window).on('load', function(){
 ////////////////// contacto///////////////////////////	
 	
 		
-			function validateFormCotacto() {
-				var name = $('#name').val();
-				var email = $('#email').val();
-				var phone = $('#phone').val();
-				var message = $('#message').val();
-				if (name == "" || email == "" || phone == "" || message == "") {
-					alert("Todos los campos deben estar llenos");
-					return false;
-				}
+function validateFormCotacto() {
+	var name = $('#name').val();
+	var email = $('#email').val();
+	var phone = $('#phone').val();
+	var message = $('#message').val();
+	if (name == "" || email == "" || phone == "" || message == "") {
+		alert("Todos los campos deben estar llenos");
+		return false;
+	}
+	if (nombre.length >= 3 || nombre.length > 21) {
+		alert("El nombre debe tener entre 3 y 20 caracteres.");
+		return false;
+	}
+	var emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	if (!email.match(emailFormat) ) {
+		alert("Por favor, ingrese un correo electrónico válido.");
+		return false;
+	}
+	var phoneFormat = /^\d+$/;
+	if (!phone.match(phoneFormat)) {
+		alert("Por favor, ingrese un número de teléfono válido.");
+		return false;
+	}
+	if (message.length > 100) {
+        alert("El mensaje debe tener un máximo de 100 caracteres.");
+        return false;
+    }
+	return true;
+}
 
-				return true;
-			}
-		
-////////////////// contacto///////////////////////////	
+//////////////////reserva///////////////////////////	
+/*
+var select = document.getElementById("anioSelect");
+    var year = new Date().getFullYear();
+    var earliestYear = 1950;
+
+    for(var i = year; i >= earliestYear; i--){
+        var option = document.createElement("option");
+        option.text = i;
+        option.value = i;
+        select.appendChild(option); 
+    }
+	*/
+$(document).ready(function() {
+    var $select = $("#anioSelect");
+    var year = new Date().getFullYear();
+    var earliestYear = 1950;
+    var options = "";
+
+    for(var i = year; i >= earliestYear; i--){
+        options += `<option value="${i}">${i}</option>`;
+    }
+
+    $select.html(options);
+});
+
+
 	
 function validateFormReserva() {
 	var nombre = $("#nombreInput").val();
@@ -88,6 +134,37 @@ function validateFormReserva() {
 
 }
 
+// API
+
+	$(document).ready(function() {
+		// Reemplaza 'your_api_key' con tu clave API de OpenWeatherMap
+		var apiKey = 'a4a334d9aee54dc41211d403964ea7cc';
+	
+		// Define la ciudad para la que deseas obtener el clima
+		var city = 'Viña del Mar';
+	
+		// Construye la URL para la API de OpenWeatherMap
+		var apiUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + apiKey;
+	
+		// Realiza una solicitud GET a la API de OpenWeatherMap
+		$.get(apiUrl, function(response) {
+			// Extrae la temperatura actual (en grados Kelvin)
+			var temperatureInKelvin = response.main.temp;
+	
+			// Convierte la temperatura a Celsius
+			var temperatureInCelsius = Math.round(temperatureInKelvin - 273.15);
+	
+			// Extrae la descripción del clima
+			var weatherDescription = response.weather[0].description;
+	
+			// Actualiza los elementos HTML con la temperatura y la descripción del clima
+			$('#temperature').text('Temperature: ' + temperatureInCelsius + '°C');
+			$('#weather').text('Weather: ' + weatherDescription);
+		});
+	});
+	
+	
+	
 //////////////////barra de contacto///////////////////////////	
 	var v = 48;
  	$(".legend").click(function(){
@@ -111,5 +188,6 @@ function validateFormReserva() {
 	}}); 
 
 
-
-
+	
+	
+	

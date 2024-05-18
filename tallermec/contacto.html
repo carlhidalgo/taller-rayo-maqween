@@ -17,10 +17,6 @@
     <link rel="stylesheet" type="text/css" href="css/nivo-slider.css">
 	<link rel="stylesheet" type="text/css" href="css/mi-slider.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-
-
-	<script src="js/smooth-scroll.polyfills.min.js"></script>
-
   </head>
  <body>
  <nav class="navbar navbar-expand-md navbar-light fixed-top barranegra mejora">
@@ -28,7 +24,7 @@
     <a class="navbar-brand logo" href="index.html">
       <img src="img/LogosFondo Blanco.png" alt="Logo">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -50,9 +46,7 @@
         </form>
       </div>
     </div>
-  </div>
 </nav>
-<div class="cuerpof">
 
 
 <!----------------------------------- CONCTACTO ----------------------------------->
@@ -85,27 +79,26 @@
 						  <div class="legend"><h3>Contacto</h3></div>
 						</div>
 						<div class="form-group"><div class="col-md-12"> 
-						<input id="name" name="data[Lead][nombre]" class="form-control input-md" placeholder="Nombre y Apellido" maxlength="80" type="text" id="LeadNombre" required="required" aria-required="true"></div>
+						<input id="name" name="data[Lead][nombre]" class="form-control mx-2 input-md" placeholder="Nombre y Apellido" maxlength="80" type="text" id="LeadNombre" required="required" aria-required="true"></div>
 						</div>
 						<div class="form-group"><div class="col-md-12"> 
-						<input id="email" name="data[Lead][email]" class="form-control input-md" placeholder="E-mail" maxlength="150" type="email" id="LeadEmail" required="required" aria-required="true">
+						<input id="email" name="data[Lead][email]" class="form-control mx-2 input-md" placeholder="E-mail" maxlength="150" type="email" id="LeadEmail" required="required" aria-required="true">
 						</div>
 						</div>
 						<div class="form-group"><div class="col-md-12"> 
-						<input id="phone"name="data[Lead][telefono]" maxlength="9" class="form-control input-md" placeholder="Teléfono" type="text" id="LeadTelefono"></div></div>
+						<input id="phone"name="data[Lead][telefono]" maxlength="9" class="form-control mx-2 input-md" placeholder="Teléfono" type="text" id="LeadTelefono"></div></div>
 						  <div class="form-group">
 						  <div class="col-md-12">
-					    	<select name="data[Lead][servicio]" class="form-control" id="LeadServicio">
+					    	<select name="data[Lead][servicio]" class="form-control mx-2" id="LeadServicio" required="required">
 						      <option value="" selected="selected" disabled="disabled">Servicio</option>
-						      <option value="Limpieza industrial">Proveedor</option>
-					          <option value="Limpieza automotriz">Cliente</option>
+						      <option value="proveedor">Proveedor</option>
+					          <option value="cliente">Cliente</option>
 						    </select>
 						  </div>
 					      </div>
 						  <div class="form-group">
 						  <div class="col-md-12">
-						    <textarea id="message"name="data[Lead][mensaje]" class="form-control input-md" placeholder="Mensaje" rows="4" id="LeadMensaje">
-						    </textarea>
+						    <textarea id="message"name="data[Lead][mensaje]" class="form-control input-md mx-2" placeholder="Mensaje" rows="4" id="LeadMensaje"></textarea>
 						  </div>
 						  </div>
 						  <div class="form-group">
@@ -117,7 +110,7 @@
 						    <input type="hidden" name="data[Lead][utm_medium]" value="cpc" id="LeadUtmMedium">
 						    <input type="hidden" name="data[Lead][utm_campaign]" value="chisemrllimpiezachile" id="LeadUtmCampaign"> 
 						    <input type="hidden" name="data[Lead][utm_term]" id="LeadUtmTerm"> <input type="hidden" name="data[Lead][utm_content]" id="LeadUtmContent"> 
-						    <button id="enviar" name="enviar" type="submit" class="btn col-xs-12 hh">Enviar</button>
+						    <button id="enviar" name="enviar" type="submit" class="btn col-xs-12 propbtn" style="width:100%">Enviar</button>
 						  </div>
 						  </div>
 					</fieldset>
@@ -125,7 +118,7 @@
 				</div>
 			</div>
 		</div>
-	
+	</div>
 	
 	
 </main>
@@ -243,18 +236,14 @@
    
 <!-- ----------------------------------------Footer ------------------------------------------------->
 
-<!--            revisar        -->
-  <script src="js/jquery-3.1.1.min.js"></script>
-  <script src="js/jquery-3.3.1.slim.min.js"></script>
+   <!-- ----------------------------------------LINKS------------------------------------------------->
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="js/popper.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-  <!--             new page           -->
-  <script src='//static.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
   <script src='//cdnjs.cloudflare.com/ajax/libs/velocity/1.1.0/velocity.min.js'></script>
   <script src='//cdnjs.cloudflare.com/ajax/libs/velocity/1.1.0/velocity.ui.js'></script>
-  <script src="js/newpage.js"></script>
-  <script src="js/jquery.nivo.slider.js"></script>
+  <script src="js/newpage.js"></script>           <!--script manuales-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nivoslider/3.2/jquery.nivo.slider.pack.min.js" integrity="sha512-rwjQKesPaeXWoFNcTVz8rPBqsU06+JhcsudIQfpUiOhxGHqymn9aSJpG7NPu4MZJ7V32Cq4YjT1qV5vVngYA1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   
 </body> 
 </html>

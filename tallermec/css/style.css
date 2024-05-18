@@ -452,27 +452,25 @@ animation-duration: 0.9s;
  margin-left: -15px; 
 }
 
-.hh{
+.propbtn{
     text-transform: uppercase;
     font-size: 15px;
     font-weight: 200;
     padding: 10px;
     margin: 0;
     -webkit-transition: all ease .5s;
-	width: 100%;
+
 color: white;
 	background-color: rgba(0, 171, 171, 255);
 		border-color: rgba(0, 171, 171, 255);
 }
-.hh:hover{
+.propbtn:hover{
 	transition: .2s;
 	background-color: #efb810;
 	border-color: #efb810;
 	
 }
-.cuerpof{
-	position:relative;
-}
+
 /**contacto**/
 .padt2{
 	padding-top: 7%;
@@ -669,6 +667,52 @@ height: 100%;
     margin: 20px 0px;
     text-transform: uppercase;
 }
+/**************************clima*****************************/
+#weatherInfo {
+  background-color: #f0f0f0;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+  text-align: center;
+}
+
+#weatherInfo p {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
+
+/**************************reservar*****************************/
+
+.form-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.form-label {
+    font-size: 1.2em;
+    color: #495057;
+}
+
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+    font-size: 1em;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.col-8 {
+    margin-bottom: 15px;
+}
+
+
 
 /**media******/
 
@@ -978,69 +1022,3 @@ background-size: 180%;
   }
   
 
-
-/*****carlos
-  .contacto {
-    font-family: 'Open Sans', sans-serif;
-    min-height: 130vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-  }
-
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-  }
-  .h2c {
-    
-    font-size: 35px;
-    color: #333;
-  }
-  label {
-    font-size: 15px;
-    color: #283629;
-    font-weight: 600;
-    margin-bottom: 15px;
-  }
-  input, textarea {
-    padding: 17px 25px;
-    border-radius: 25px;
-    margin-bottom: 20px;
-    background-color: #eddff0;
-    border: 2px solid #f0faf1;
-    color: #283629;
-    outline: none;
-  }
-  input::placeholder, textarea::placeholder {
-    color: #b5cab6;
-  }
-  .form-txt {
-    
-    margin-bottom: 30px;
-    display: flex;
-    justify-content: space-between;
-    text-align: center;
-  }
-  .form-txt a {
-    color: #1b7721;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none
-  }
-  .btn {
-    font-size: 16px;
-    color: #ffffff;
-    border: 0;
-    border-radius: 25px;
-    background-color: #51d94c;
-    box-shadow: 0 0 20px rgba(25, 254, 0, 0.4);
-    cursor: pointer;
-  }
-  .btn:hover {
-    background-color: #50e04b;
-  }
-
-***/
