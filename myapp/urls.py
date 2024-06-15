@@ -32,5 +32,9 @@ urlpatterns = [
     path('eliminar/<int:item_id>/', views.eliminar_del_carrito, name='eliminar_del_carrito'), #eliminar items del carrito
     path('actualizar/<int:item_id>/', views.actualizar_carrito, name='actualizar_carrito'), #actualizar items del carrito
     path('finalizar_comprax', views.finalizar_comprax, name='finalizar_comprax'),
-    
-]
+    path('actualizar_informacion_cliente',views.actualizar_informacion_cliente,name='actualizar_informacion_cliente'),
+    path('recuperar_contrasena',views.recuperar_contrasena,name='recuperar_contrasena'),
+    path('confirmar_codigo',views.confirmar_codigo,name='confirmar_codigo'),
+    path('contacto_envio',views.contacto_envio,name='contacto_envio'),
+    path('reservar_envio',views.reservar_envio,name='reservar_envio'),
+] 

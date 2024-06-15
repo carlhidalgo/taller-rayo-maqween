@@ -194,28 +194,63 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form action="{% url 'recuperar_contrasena' %}"  method="POST">
+                {% csrf_token %}
                 <h6>Ingrese su dirección de correo y revise correos recibidos, considere la bandeja de 'spam'.
                   Si el usuario se encuentra registrado recibirá un email para reestablecer su contraseña.
                 </h6>
                 <div class="mb-3 mt-4">
   
                   <label for="recuperar-correo" class="form-label">Correo: </label>
-                  <input type="email" class="form-control" id="recuperar-correo" required>
+                  <input name="email" type="email" class="form-control" id="recuperar-correo" required>
                 </div>
   
                 <button type="submit" class="btn btn-primary">Enviar</button>
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal">
-                  Volver
-                </button>
-  
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal">Volver</button>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#restablecerModal"> Ingreso de código</button>
               </form>
   
             </div>
           </div>
         </div>
       </div> 
-      
+
+      <!--codigo para recuperar contrseña-->
+      <div class="modal fade" id="restablecerModal" tabindex="-1" aria-labelledby="restablecerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="restablecerModalLabel">Restablecer contraseña</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="{% url 'confirmar_codigo' %}"  method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="reestablecer-contraseña" class="form-label">Código</label>
+                  <input name="codigo"type="" class="form-control" id="reestablecer-contraseña" required>
+                </div>
+                <div class="mb-3">
+                  <label for="nueva-contraseña" class="form-label">Nueva contraseña:</label>
+                  <input name="contrasena"type="password" class="form-control" id="nueva-contraseña" required>
+                </div>
+                <div class="mb-3">
+                  <label for="reconfirmar-contraseña" class="form-label">Confirmar contraseña:</label>
+                  <input name="contrasena2" type="password" class="form-control" id="reconfirmar-contraseña" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Reestablecer</button>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                  Volver
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
       <!-- Modal para mostrar mensajes loggin -->
 <div class="modal fade" id="mensajeModal" tabindex="-1" aria-labelledby="mensajeModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -314,7 +349,7 @@
 <script src='//cdnjs.cloudflare.com/ajax/libs/velocity/1.1.0/velocity.ui.js'></script>
 <script src="{% static 'myapp/js/newpage.js' %}"></script>
 <script>
-    // MODAL REGISTRO EXITOSO O ERROR
+    // MODAL QUE APAREZCA CADA VEZ QUE EXISTA UN MENSAJE QUE MOSTRAR
 window.onload = function() {
   var mensaje = "{{ mensaje }}";
   if(mensaje.trim() !== ""){  // Verifica que mensaje no esté vacío después de quitar espacios en blanco

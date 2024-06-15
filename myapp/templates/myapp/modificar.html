@@ -2,38 +2,34 @@
 {% load static %}
 {% block content %}
 <br><br><br><br><br><br>
-		 <form action="" class= "row g-3 d-flex align-items-center justify-content-center">
+		 <form action="{% url 'actualizar_informacion_cliente' %}" method="POST" class= "row g-3 d-flex align-items-center justify-content-center">
+            {% csrf_token %}  
            <!--INPUTS-->
             <div class = "col-5">
               <label for="nombreInput" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombreInput" placeholder="Ingrese su nombre">
+              <input name="nombre" type="text" class="form-control" id="nombreInput" placeholder="Ingrese su nombre">
             </div>
 
             <div class = "col-5">
               <label for="apellidosInput" class="form-label">Apellido(s)</label>
-              <input type="text" class="form-control" id="apellidosInput" placeholder="Ingrese su(s) apellido(s)">
-            </div>
-
-            <div class = "col-5">
-              <label for="rutInput" class="form-label">Rut</label>
-              <input type="text" class="form-control" id="rutInput" placeholder="Ingrese su rut">
+              <input name="apellido" type="text" class="form-control" id="apellidosInput" placeholder="Ingrese su(s) apellido(s)">
             </div>
 
             <div class = "col-5">
               <label for="emailInput" class="form-label">Correo</label>
-              <input type="email" class="form-control" id="emailInput" placeholder="Ingrese su correo">
+              <input name="email" type="email" class="form-control" id="emailInput" placeholder="Ingrese su correo">
             </div>
 
             <div class = "col-5">
-              <label for="telefonoInput" class="form-label">Contraseña</label>
-              <input type="text" class="form-control" id="telefonoInput" placeholder="Ingrese su nueva contraseña">
+              <label for="contrasena" class="form-label">Contraseña</label>
+              <input name="contrasena" type="text" class="form-control" id="telefonoInput" placeholder="Ingrese su nueva contraseña">
             </div>
 
             <div class = "col-5">
-              <label for="marcaInput" class="form-label">Confirmar Contraseña</label>
-              <input type="text" class="form-control" id="marcaInput" placeholder="Confirme su nueva contraseña">
+              <label for="marcaInput" class="form-label" style="left:0px; margin-left:0px;">Confirmar Contraseña</label>
+              <input name="contrasena2"type="text" class="form-control" id="marcaInput" placeholder="Confirme su nueva contraseña">
             </div>
-
+            <div class = "col-12"></div>
        
            <button type="button" class="btn btn-primary col-2 mb-4 propbtn mx-5 mt-4 align-items-left" style="left:0px;"  onclick="window.history.back()">Volver atrás</button>  
            <button type="submit" class="btn btn-primary col-2 mb-4 mt-4 propbtn mx-5">Actualizar</button>  <!--SUBMIT-->

@@ -9,6 +9,12 @@ from django.http import JsonResponse
 from django.contrib.contenttypes.models import ContentType
 import json   #para leer json
 from django.conf import settings #parte para finalizar la compra
+#para enviar correos
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.contrib import messages
+import random #para generar numeros random
+import string
 
 
 # Create your views here.
@@ -124,8 +130,6 @@ def eliminar_cuenta(request):
         if cliente_id:
             try:
                 cliente_obj = cliente.objects.get(rut=cliente_id)
-                # Aquí puedes agregar una lógica adicional para verificar la contraseña o confirmación
-
                 contrasena = request.POST.get('contrasena', '')
                 if cliente_obj.contrasena == contrasena:
                     cliente_obj.delete()
@@ -280,3 +284,133 @@ def finalizar_comprax(request):
         return render(request, 'myapp/finalizar_compra.html')
     except cliente.DoesNotExist:
         return redirect('index')
+
+def actualizar_informacion_cliente(request):
+    cliente_id = request.session.get('cliente_id')
+    print("test")
+    if not cliente_id:
+        return redirect('index')
+    try:
+        cliente_obj = cliente.objects.get(rut=cliente_id)
+        print("test2")
+        if request.method == 'POST':
+            print("test3")
+            nombre = request.POST.get('nombre')
+            apellido = request.POST.get('apellido')
+            email = request.POST.get('email')
+            contrasena = request.POST.get('contrasena')
+            print("hola")
+            if nombre != '':
+                cliente_obj.nombre = nombre
+            if apellido != '':
+                cliente_obj.apellido = apellido
+            if email != '':
+                cliente_obj.email = email
+            if contrasena != '':
+                cliente_obj.contrasena = contrasena   
+            cliente_obj.save()
+            return render(request, 'myapp/perfil.html',{'mensaje': 'Datos modificados correctamente'})
+        else:
+            return render(request, 'myapp/modificar.html', {'mensaje': 'Error intente nuevamente'})
+    except cliente.DoesNotExist:
+
+        return redirect('index')
+def generar_codigo():
+    caracteres = string.ascii_letters + string.digits  # Letras mayúsculas, minúsculas y dígitos
+    codigo = ''.join(random.choices(caracteres, k=10))  # Genera una cadena de 10 caracteres aleatorios
+    return codigo    
+
+#recuperar contraseña - envio de codigo de recupereación
+def recuperar_contrasena(request):   #falta validar si existe el objeto con un try
+    if request.method == 'POST':
+        email= request.POST.get('email')
+        cliente_obj = cliente.objects.get(email=email)
+        cliente_obj.codigo = generar_codigo()
+        print(cliente_obj.codigo)
+        cliente_obj.save()
+        subject = 'Recuperar contraseña taller mecanico rayomakween'
+        message = 'CODIGO PROVISORIO:\n'+cliente_obj.codigo
+        from_email = 'conmiscotusca2@gmail.com'  # correo de prueba que tenemos
+        send_correo = [email]  # envía al correo que tiene asociado
+        try:
+            send_mail(subject, message, from_email, send_correo)
+            messages.success(request, 'Correo enviado exitosamente.')
+        except Exception as e:
+            messages.error(request, f'Error al enviar el correo: {e}')
+
+        return render(request, 'myapp/index.html', {'mensaje': 'Envío exitoso, favor revise su correo'})
+
+    return redirect('index')
+
+#recuperar contraseña
+def confirmar_codigo(request):
+    if request.method == 'POST':
+        codigo=  request.POST.get('codigo')
+        try:
+            cliente_obj = cliente.objects.get(codigo=codigo)
+        except:
+            return render(request, 'myapp/index.html', {'mensaje': 'Código ingresado no es válido o a caducado'})  
+        contrasena= request.POST.get('contrasena')
+        if cliente_obj != '':
+            cliente_obj.contrasena = contrasena   
+            print("hola")
+            print(cliente_obj.codigo)
+            cliente_obj.save()
+            print(cliente_obj)
+            return render(request, 'myapp/index.html', {'mensaje': 'Contraseña modificada con éxito'})
+            
+        else:
+            return render(request, 'myapp/index.html', {'mensaje': 'Código ingresado no es válido o a caducado'})  
+
+    return redirect('index')
+
+#funcion form contacto
+def contacto_envio(request):
+    if request.method == 'POST':
+        nombre = request.POST.get("nombre") #nombre y apellido
+        email = request.POST.get("email")
+        telefono = request.POST.get("telefono")
+        mensaje_ = request.POST.get("mensaje")
+        motivo =  request.POST.get("motivo")
+        subject = 'Mensaje a través de contacto, seleccioón: '+motivo
+        message = "La persona: "+nombre+" ha enviado el siguiente mensaje:\n\n"+mensaje_+"\n\n"+"Telefono: "+telefono+"\n"+"Email: "+email
+        from_email = 'conmiscotusca2@gmail.com'  # correo de prueba que tenemos desde ahi salen los correos
+        recipient_list = ['gu.auger@duocuc.cl']  # correo aqui llegan los correos de contacto & reserva
+
+        try:
+            send_mail(subject, message, from_email, recipient_list)
+
+            messages.success(request, 'Correo enviado exitosamente.')
+        except Exception as e:
+            messages.error(request, f'Error al enviar el correo: {e}')
+
+        return render(request, 'myapp/index.html', {'mensaje': 'Envío exitoso, favor revise su correo'})
+
+    return redirect('index')
+
+def reservar_envio(request):
+    if request.method == 'POST':
+        nombre = request.POST.get("nombre") #nombre y apellido
+        apellido = request.POST.get("apellido")
+        rut = request.POST.get("rut")
+        email = request.POST.get("email")
+        telefono = request.POST.get("telefono")
+        marca = request.POST.get("marca")
+        anno =  request.POST.get("anno")
+        fecha = request.POST.get("fecha")
+        diagnostico = request.POST.get("diagnostico")
+        subject = 'Reserva, selección: '+ diagnostico
+        message = "Reserva:\n\nNombre: "+nombre+" "+apellido+"\nRut: "+rut+"\nEmail: "+email+"\nTelefono: "+telefono+"\nAuto: "+marca +"\nAño: "+anno+"\nFecha reserva: "+fecha
+        from_email = 'conmiscotusca2@gmail.com'  # correo de prueba que tenemos desde ahi salen los correos
+        recipient_list = ['gu.auger@duocuc.cl']  # correo aqui llegan los correos de contacto & reserva
+ 
+        try:
+            send_mail(subject, message, from_email, recipient_list)
+            print(message)
+            messages.success(request, 'Correo enviado exitosamente.')
+        except Exception as e:
+            messages.error(request, f'Error al enviar el correo: {e}')
+
+        return render(request, 'myapp/reservar.html', {'mensaje': 'Envío exitoso, favor revise su correo'})
+
+    return redirect(request,'myapp/reservar.html', {'mensaje': 'Error al enviar mensaje, intente más tarde'}) 
