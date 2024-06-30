@@ -20,20 +20,32 @@ class Categoria(models.Model):
 
 class Bateria(models.Model):
     marca = models.CharField(max_length=30)
-    descripcion = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100, db_column='descripcion')
     precio = models.DecimalField(max_digits=10, decimal_places=0)
     cantidad = models.PositiveIntegerField(default=1)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='baterias')
-    
+    icono = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return self.marca
+    
+class Servicio(models.Model):
+    nombre = models.CharField(max_length=50, null=True)
+    descripcion = models.CharField(max_length=400)
+    precio = models.DecimalField(max_digits=10, decimal_places=0)
+    cantidad = models.PositiveIntegerField(default=1)
+    icono = models.CharField(max_length=100, null=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='servicios')
+    
+
+    def __str__(self):
+        return self.nombre
     
 class CarritoItem(models.Model):
     cliente = models.ForeignKey(cliente, on_delete=models.CASCADE)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id') #cruce entre tipo de objeto y id de objeto
     cantidad = models.PositiveIntegerField(default=1)
 
     def __str__(self):

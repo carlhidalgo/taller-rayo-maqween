@@ -45,119 +45,32 @@
 	<div class="titulo text-center wow fadeInUp tituloserv" style="visibility: visible; animation-name: fadeInUp;"><h2>Servicios</h2></div>
 	<div class="space"></div>
 	<div class="row servv">
+		{% for servicio in servicios %}
 		<div class="servicio col-lg-3 col-md-6 wow fadeInUp" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
 			<div class="box-servicio"> 
 				<a class="btn-cotiza">
 					<div class="img-servicio col-md-12">
-						<div class="icon"> <img width="64" height="64" class="img-responsive" src="https://img.icons8.com/ios-glyphs/30/tire-wobble.png" alt="tire-wobble"/></div>
-					</div> 	
-				</a>
-				<div class="texto col-md-12 text-center"  >
-					<div class="titulo-tres"><h3>Alineamiento</h3></div>
-						<p>Alineación para un manejo seguro y durabilidad de neumáticos. Garantizamos conducción suave, desgaste uniforme y economía de combustible. Puede mejorar hasta un 10% en rendimiento.</p>
-					<a class="btn btn-cotiza fadeIn btnserv" data-scroll href="" id="contacto" style="color: white; visibility: visible; animation-name: fadeIn;">Agregar</a>
-				</div>
-			</div>
-		</div>
-		<div class="servicio col-lg-3 col-md-6 wow fadeInUp"  style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
-			<div class="box-servicio"> 
-				<a class="btn-cotiza">
-					<div class="img-servicio col-md-12">
-						<div class="icon"> <img width="64" height="64" class="img-responsive" src="https://img.icons8.com/ios/50/brake-discs.png" alt="brake-discs"/></div>
-					</div> 
+						<div class="icon"> <img width="64" height="64" class="img-responsive" src="{{ servicio.icono }}" alt="tire-wobble"/></div>
+					</div>     
 				</a>
 				<div class="texto col-md-12 text-center">
-					<div class="titulo-tres"><h3>Rectificación de discos</h3></div>
-						<p>Eliminamos irregularidades con equipos especializados, aumentando la vida últil de estos, garantizando eficacia de frenado y eliminando problemas. Confía en nuestros expertos.</p>
-					<a class="btn btn-cotiza btnserv fadeIn" href="" id="contacto" style="color: white; visibility: visible; animation-name: fadeIn;">Agregar</a>
+					<div class="titulo-tres"><h3>{{ servicio.nombre }}</h3></div>
+					<p>{{ servicio.descripcion }}</p>
+					<p>Precio: ${{ servicio.precio }}</p>
+					<form method="post" action="{% url 'agregar_al_carrito' %}">
+						{% csrf_token %}
+						<input type="hidden" name="content_type" value="{{ servicio.content_type }}">
+						<input type="hidden" name="object_id" value="{{ servicio.id }}">
+						<div class="form-group">
+							<input type="number" name="cantidad" min="1" max="1" class="form-control" placeholder="Cantidad" value="1" hidden>
+							<input name="tipo" value="Servicio"  hidden>
+						</div>
+						<button type="submit" class="btn btn-cotiza fadeIn btnserv">Agregar al carrito</button>
+					</form>
 				</div>
 			</div>
 		</div>
-		<div class="servicio col-lg-3 col-md-6 wow fadeInUp" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
-			<div class="box-servicio"> 
-				<a class="btn-cotiza">
-					<div class="img-servicio col-md-12">
-						<div class="icon"><img width="64" height="64" class="img-responsive"src="https://img.icons8.com/ios/50/air-suspension-warning--v2.png" alt="air-suspension-warning--v2"/></div>
-					</div> 
-				</a>
-				<div class="texto col-md-12 text-center">
-					<div class="titulo-tres"><h3>Servicio de suspensión</h3></div>
-						<p>Optimizamos tu suspensión para comodidad y seguridad. Inspeccionamos y reparamos amortiguadores, resortes, bujes y enlaces. Mantén el control y la suavidad en cada viaje con nuestro servicio experto.</p> 
-					<a class="btn btn-cotiza btnserv fadeIn"  href="#sec-2" id="contacto" style="color: white; visibility: visible; animation-name: fadeIn;">Agregar</a>
-				</div>
-			</div>
-		</div>
-		<div class="servicio col-lg-3 col-md-6 wow fadeInUp" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
-			<div class="box-servicio">
-				<a class="btn-cotiza">
-					<div class="img-servicio col-md-12">
-						<div class="icon"> <img width="64" height="64" class="img-responsive" src="https://img.icons8.com/badges/48/car-service.png" alt="car-service"/></div>
-					</div>
-				</a>
-				<div class="texto col-md-12 text-center">
-					<div class="titulo-tres"><h3>Mantenimiento General</h3></div>
-						<p> Optimizamos tu vehículo. Utilizamos tecnología avanzada para detectar y prevenir problemas potenciales. Confía en nosotros para mantener tu vehículo en óptimas condiciones.</p>
-					<a class="btn btn-cotiza btnserv fadeIn"  href="#sec-2" id="contacto" style="color: white; visibility: visible; animation-name: fadeIn;">Agregar</a>
-				</div>
-			</div>
-		</div>
-				<div class="servicio col-lg-3 col-md-6 wow fadeInUp" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
-			<div class="box-servicio"> 
-				<a class="btn-cotiza">
-					<div class="img-servicio col-md-12">
-						<div class="icon"> <img width="64" height="64" class="img-responsive" src="https://img.icons8.com/dotty/80/engine.png" alt="engine"/></div>
-					</div> 	
-				</a>
-				<div class="texto col-md-12 text-center">
-					<div class="titulo-tres"><h3>Afinamiento</h3></div>
-						<p> Maximizamos el rendimiento y la eficiencia de tu vehículo. Realizamos ajustes detallados en motor, encendido, frenos y suspensión. Confía en nuestro servicio de afinamiento para una experiencia de conducción segura y óptima durabilidad.</p>
-					<a class="btn btn-cotiza fadeIn btnserv" href="#sec-2" id="contacto" style="color: white; visibility: visible; animation-name: fadeIn;">Agregar</a>
-				</div>
-			</div>
-		</div>
-		<div class="servicio col-lg-3 col-md-6 wow fadeInUp"  style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
-			<div class="box-servicio"> 
-				<a class="btn-cotiza">
-					<div class="img-servicio col-md-12">
-						<div class="icon"> <img width="64" height="64" class="img-responsive" src="https://img.icons8.com/ios/50/engine-oil-level.png" alt="engine-oil-level"/></div>
-					</div> 
-				</a>
-				<div class="texto col-md-12 text-center">
-					<div class="titulo-tres"><h3>Cambio de aceite y filtro del motor</h3></div>
-						<p>Garantizamos un cambio de aceite y filtro de motor de calidad profesional. Utilizamos productos de alta calidad para una lubricación óptima. Prolonga la vida útil de tu vehículo y evita reparaciones costosas.</p>
-					<a class="btn btn-cotiza btnserv fadeIn" href="" id="contacto" style="color: white; visibility: visible; animation-name: fadeIn;">Agregar</a>
-				</div>
-			</div>
-		</div>
-		<div class="servicio col-lg-3 col-md-6 wow fadeInUp" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
-			<div class="box-servicio"> 
-				<a class="btn-cotiza">
-					<div class="img-servicio col-md-12">
-						<div class="icon"><img width="64" height="64" class="img-responsive" src="https://img.icons8.com/dotty/80/tire.png" alt="tire"/></div>
-					</div> 
-				</a>
-				<div class="texto col-md-12 text-center">
-					<div class="titulo-tres"><h3>Servicio de vulcanizado</h3></div>
-					<p>Servicio de vulcanizado: limpieza a fondo, aplicación de compuestos de vulcanización avanzados y tratamiento térmico experto, garantizamos resultados óptimos para una conducción segura y confiable.</p> 
-					<a class="btn btn-cotiza btnserv fadeIn" href="#sec-2" id="contacto" style="color: white; visibility: visible; animation-name: fadeIn;">Agregar</a>
-				</div>
-			</div>
-		</div>
-		<div class="servicio col-lg-3 col-md-6 wow fadeInUp" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
-			<div class="box-servicio">
-				<a class="btn-cotiza">
-					<div class="img-servicio col-md-12">
-						<div class="icon"> <img width="52" height="52" class="img-responsive"  src="https://img.icons8.com/badges/48/car-cleaning.png" alt="car-cleaning"/></div>
-					</div>
-				</a>
-				<div class="texto col-md-12 text-center">
-					<div class="titulo-tres"><h3>Servicio autolavado completo</h3></div>
-					<p>Servicio de autolavado: ofrece un lavado exterior meticuloso, eliminación de suciedad incrustada y aplicaciones de cera de alta calidad para un brillo duradero. Además, incluye aspirado profundo y limpieza detallada del interior</p>
-					<a class="btn btn-cotiza btnserv fadeIn" href="" id="contacto" style="color: white; visibility: visible; animation-name: fadeIn;">Agregar</a>
-				</div>
-			</div>
-		</div>
-		
+		{% endfor %}
 	</div>
 </div>
 

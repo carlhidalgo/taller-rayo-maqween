@@ -1,7 +1,7 @@
 
 from django.http import HttpResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import cliente, Bateria, CarritoItem
+from .models import cliente, Bateria, CarritoItem, Servicio
 from django.db.utils import IntegrityError
 from django.contrib.auth import authenticate
 from django.contrib import messages
@@ -23,9 +23,6 @@ def index(request):
 
 def contacto(request):
     return render(request, 'myapp/contacto.html')
-
-def servicios(request):
-    return render(request, 'myapp/servicios.html')
 
 def nosotros(request):
     return render(request, 'myapp/nosotros.html')
@@ -58,7 +55,14 @@ def baterias(request):
 
 def baterias_vista(request):
     baterias = Bateria.objects.all()
-    return render(request, 'myapp/baterias.html', {'baterias': baterias})
+    return render(request, 'myapp/baterias.html', {'baterias': baterias}) #hacer ciclo de productos bateria
+
+def servicios(request):
+    return render(request, 'myapp/servicios.html')
+
+def servicios_vista(request):
+    servicios = Servicio.objects.all()
+    return render(request, 'myapp/servicios.html', {'servicios': servicios}) #hacer ciclo de servicios
 
 def finalizar_compra(request):
     return render(request, 'myapp/finalizar_compra.html')
@@ -150,23 +154,22 @@ def agregar_al_carrito(request):
         cliente_rut = request.session.get('cliente_id')
         cantidad = request.POST.get('cantidad')
         product_id = request.POST.get('object_id')
-        # Verificar si el cliente está autenticado
-        if cliente_rut:
+        tipo = request.POST.get('tipo')
+        redirigir= tipo.lower()+"s"
+        if cliente_rut: # Verificar si el cliente está autenticado
             try:
-                # Obtener el cliente
-                cliente_obj= cliente.objects.get(rut=cliente_rut)
-                print(cliente_obj)
-                # Obtener la batería (producto)
-                bateria = Bateria.objects.get(id=product_id)
-                print(bateria)
-                # Obtener el tipo de contenido para Bateria
-                content_type = ContentType.objects.get_for_model(Bateria)
+                cliente_obj= cliente.objects.get(rut=cliente_rut)                 # Obtenemos todos los objetos de cliente
+                print(cliente_obj) #contol
+                content_type = ContentType.objects.get(model=tipo.lower())  # Obtenemos el tipo de contenido dinámicamente "por tipo"
+                ModelClass = content_type.model_class()
+                producto = ModelClass.objects.get(id=product_id) #obtenemos el producto de acuerdo al su modelo correspondiente y a su id
+                producto = Servicio.objects.get(id=product_id)
+                print(producto)
                 print(content_type)
-                # Crear o actualizar el item en el carrito
-                carrito_item, created = CarritoItem.objects.get_or_create(
+                carrito_item, created = CarritoItem.objects.get_or_create(                 # Crear o actualizar el item en el carrito
                     cliente=cliente_obj,
                     content_type=content_type,
-                    object_id=bateria.id,
+                    object_id=producto.id,
                     cantidad=cantidad
                 )
 
@@ -177,10 +180,10 @@ def agregar_al_carrito(request):
                     carrito_item.save()
                     messages.success(request, 'Cantidad actualizada en el carrito.')
 
-                return redirect('baterias')  # Redirigir a la vista del carrito
+                return redirect(redirigir)  # Redirigir a la vista del carrito
             except Bateria.DoesNotExist:
                 messages.error(request, 'La batería seleccionada no existe.')
-                return redirect('baterias')  # Redirigir a donde sea necesario en caso de error
+                return redirect(redirigir)  # Redirigir a donde sea necesario en caso de error
             except cliente.DoesNotExist:
                 messages.error(request, 'No se encontró el cliente.')
                 return redirect('index')  # Redirigir a la página de inicio o a la página de inicio de sesión si no hay cliente autenticado
@@ -225,11 +228,15 @@ def eliminar_del_carrito(request, item_id):
     return redirect('carrito')
 
 def actualizar_carrito(request, item_id):
-    item = get_object_or_404(CarritoItem, id=item_id)
     if request.method == 'POST':
-        nueva_cantidad = int(request.POST.get('cantidad', 1))
-        item.cantidad = nueva_cantidad
-        item.save()
+        cantidad = int(request.POST.get('cantidad'))
+        try:
+            carrito_item = CarritoItem.objects.get(id=item_id)
+            carrito_item.cantidad = cantidad
+            carrito_item.save()
+            messages.success(request, 'Cantidad actualizada en el carrito.')
+        except CarritoItem.DoesNotExist:
+            messages.error(request, 'El artículo no existe en el carrito.')
     return redirect('carrito')
 
 #finalizar la compra:
@@ -245,15 +252,10 @@ def finalizar_comprax(request):
         else:     
             if request.method == 'POST':
                 numero_tarjeta = request.POST.get('numero_tarjeta')
-                print(numero_tarjeta)
                 cvv = request.POST.get('cvv')
-                print(cvv)
                 contrasena = request.POST.get('contrasena')
-                print(contrasena)
-
                 with open(settings.BASE_DIR / 'myapp/tarjetas.json', 'r') as file:
                     tarjetas = json.load(file)
-                    print("1")
                     print(tarjetas)
                 tarjeta_valida = False
                 for tarjeta in tarjetas:
@@ -270,16 +272,14 @@ def finalizar_comprax(request):
                             for item in carrito_items:
                                 item.content_object.cantidad -= item.cantidad
                                 item.content_object.save()
-                            tarjeta['monto'] = float(tarjeta['monto'] - total_compra)#descuenta dinero de la tarjeta
+                            tarjeta['monto'] = int(tarjeta['monto'] - total_compra)#descuenta dinero de la tarjeta
                             with open(settings.BASE_DIR / 'myapp/tarjetas.json', 'w') as file: #abre la tarjeta y descuenta el dinero de la tarjeta
                                 json.dump(tarjetas, file)  
                             carrito_items.delete() #elimina los items del carrito
                             print("ok pagado") # a modo de control interno por consola
                             return render(request, 'myapp/finalizar_compra.html', {'mensaje': 'Compra finalizada con éxito'})  # se puede depurar, muestra mensaje de compra ok     
-
-
                 if not tarjeta_valida:
-                    print("xx")
+
                     return render(request, 'myapp/finalizar_compra.html', {'mensaje': 'Datos de tarjeta incorrectos'})                      
         return render(request, 'myapp/finalizar_compra.html')
     except cliente.DoesNotExist:

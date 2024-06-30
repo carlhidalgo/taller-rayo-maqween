@@ -37,7 +37,7 @@
                 <li class="nav-item colorletrasb"><a class="nav-link" data-scroll href="{% url 'reservar' %}" id="reservar"><i class="bi bi-calendar-check"></i> Reservar hora</a></li>
                 <li class="nav-item colorletrasb"><a class="nav-link" data-scroll href="{% url 'contacto' %}" id="contacto"><i class="bi bi-chat-text"></i> Contacto</a></li>
                 <li class="nav-item colorletrasb">
-                    <a class="nav-link" data-bs-toggle="modal" data-bs-target="#carritoModal">
+                    <a class="nav-link"  href="{% url 'carrito' %}">
                         <i class="bi bi-cart-check"></i>
                     </a>
                 </li>  
@@ -75,34 +75,7 @@
         </div>
     </div>
 </nav>
-<!-- Botón que abre el modal -->
 
-
-<!-- Modal carrito-->
-<div class="modal fade" id="carritoModal" tabindex="-1" role="dialog" aria-labelledby="carritoModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <form action="{% url 'carrito' %}">
-          <div class="modal-header">
-           
-              <h5 class="modal-title" id="carritoModalLabel">Carrito de Compras</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-              <div class="list-group" id="carritoContenido">
-                  <!-- Aquí se cargarán los items del carrito mediante JavaScript -->
-              </div>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button type="submit" class="btn btn-primary">Ir a pagar</button>
-          </div>
-        </form>
-      </div>
-  </div>
-</div>
 
  <!-- PopUp ingreso NUEVO -->
  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">

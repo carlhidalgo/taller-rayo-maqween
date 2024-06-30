@@ -38,7 +38,7 @@
                         </div>
                         <div class="texto col-md-12 text-center">
                             <div class="titulo-tres"><h3>{{ bateria.marca }}</h3></div>
-                            <p>{{ bateria.descripcion }}</p>
+                            <p>{{ bateria.nombre }}</p>
                             <p>Precio: ${{ bateria.precio }}</p>
                             <form method="post" action="{% url 'agregar_al_carrito' %}">
                                 {% csrf_token %}
@@ -47,8 +47,9 @@
                                 <div class="form-group">
                                     <label for="cantidad">Cantidad:</label>
                                     <input type="number" name="cantidad" min="1" max="10" class="form-control" placeholder="Cantidad" required>
+                                    <input name="tipo" value="Bateria"  hidden>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+                                <button type="submit" class="btn btn-cotiza fadeIn btnserv">Agregar al carrito</button>
                             </form>
                         </div>
                     </div>
