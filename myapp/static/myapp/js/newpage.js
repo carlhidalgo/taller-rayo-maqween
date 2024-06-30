@@ -1,6 +1,3 @@
-//modal
-
-var myModal = new bootstrap.Modal(document.getElementById('carritoModal'), {} )
 
 //poppover
 
@@ -15,7 +12,128 @@ $(window).on('load', function(){
             $('#slider').nivoSlider();
         });
 
+//////////////////login///////////////////////////
 
+function validateLoginForm() {
+    var email = $('#login-correo').val();
+
+    // Validar el formato del correo electrónico
+    var emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.match(emailFormat)) {
+        alert("Por favor, ingrese un correo electrónico válido.");
+        return false;
+    }
+
+    return true;
+}
+//////////////////registrar///////////////////////////
+
+function validateRegistroForm() {
+    var nombre = $('#registrar-nombre').val();
+    var apellido = $('#registrar-apellido').val();
+    var rut = $('#registrar-rut').val();
+    var email = $('#registrar-correo').val();
+    var confirmarEmail = $('#confirmar-correo').val();
+    var contrasena = $('#registrar-contraseña').val();
+    var confirmarContrasena = $('#confirmar-contraseña').val();
+
+    // Verificar si al menos un campo está lleno
+    if (nombre == "" || apellido == "" || rut == "" || email == "" || confirmarEmail == "" || contrasena == "" || confirmarContrasena == "") {
+        alert("Debe completar todos los campos");
+        return false;
+    }
+
+    // Validar que el nombre esté dentro del rango adecuado
+    if (nombre.length <= 3 || nombre.length > 20) {
+        alert("El nombre debe tener entre 3 y 20 caracteres.");
+        return false;
+    }
+
+    // Validar el formato del correo electrónico
+    var emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && !email.match(emailFormat)) {
+        alert("Por favor, ingrese un correo electrónico válido.");
+        return false;
+    }
+
+    // Validar que los correos electrónicos coincidan
+    if (email != confirmarEmail) {
+        alert("Los correos electrónicos no coinciden.");
+        return false;
+    }
+
+    // Validar que las contraseñas coincidan
+    if (contrasena != confirmarContrasena) {
+        alert("Las contraseñas no coinciden.");
+        return false;
+    }
+
+    // Validar que el RUT solo tenga números y sea un número válido
+    var rutFormat = /^\d+$/;
+    if (rut && !rut.match(rutFormat)) {
+        alert("Por favor, ingrese un RUT válido.");
+        return false;
+    }
+	    // Validar la contraseña
+	var contrasenaFormat = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
+	if (!contrasena.match(contrasenaFormat)) {
+		alert("La contraseña debe tener al menos 6 caracteres, incluyendo una letra mayúscula y un número.");
+		return false;
+	}
+    return true;
+}	
+
+//////////////////actualizar///////////////////////////
+
+function validateUpdateForm() {
+    var nombre = $('#nombreInput').val();
+    var apellido = $('#apellidosInput').val();
+    var email = $('#emailInput').val();
+    var contrasena = $('#telefonoInput').val();
+    var confirmarContrasena = $('#marcaInput').val();
+
+    // Verificar si al menos un campo está lleno
+    if (nombre == "" && apellido == "" && email == "" && contrasena == "" && confirmarContrasena == "") {
+        alert("Al menos un campo debe estar lleno");
+        return false;
+    }
+
+    // Validar que ambas contraseñas sean iguales
+    if (contrasena !== confirmarContrasena) {
+        alert("Las contraseñas no coinciden.");
+        return false;
+    }
+
+    // Validar que si una contraseña está llena, la otra también debe estarlo
+    if ((contrasena !== "" && confirmarContrasena === "") || (contrasena === "" && confirmarContrasena !== "")) {
+        alert("Ambos campos de contraseña deben estar llenos.");
+        return false;
+    }
+
+    // Validar los requisitos de la contraseña
+    if (contrasena !== "" && !contrasena.match(/^(?=.*[A-Z])(?=.*\d).{6,}$/)) {
+        alert("La contraseña debe tener al menos 6 caracteres, incluyendo una letra mayúscula y un número.");
+        return false;
+    }
+
+    return true;
+}
+
+//////////////////recuperar///////////////////////////
+
+function validateFormRecuperar() {
+	var recuperar = $('#recuperar-correo').val();
+	if (recuperar == "") {
+		alert("El campo debe estar lleno");
+		return false;
+	}
+	var emailFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	if (!recuperar.match(emailFormat) ) {
+		alert("Por favor, ingrese un correo electrónico válido.");
+		return false;
+	}
+	return true;
+}
 	
 ////////////////// contacto///////////////////////////	
 	
@@ -94,21 +212,21 @@ function validateFormReserva() {
 	}
 
 	// Validación de largo
-	if (nombre.length >= 3 || nombre.length > 21) {
+	if (nombre.length <= 3 || nombre.length > 21) {
 		alert("El nombre debe tener entre 3 y 20 caracteres.");
 		return false;
 	}
 
-	if (apellidos.length >= 3 || apellidos.length > 21) {
+	if (apellidos.length <= 3 || apellidos.length > 21) {
 		alert("El apellido debe tener entre 3 y 20 caracteres.");
 		return false;
 	}
-	if ( rut.length < 11 || rut.length > 8) {
+	if ( rut.length > 11 || rut.length < 8) {
 		alert("El rut debe tener entre 8 y 10 caracteres.");
 		return false;
 	}
 
-	if (telefono.length >= 9 || telefono.length > 12) {
+	if (telefono.length < 9 || telefono.length > 12) {
 		alert("El teléfono debe tener entre 9 y 12 caracteres.");
 		return false;
 	}
