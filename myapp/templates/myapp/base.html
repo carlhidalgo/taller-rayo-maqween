@@ -86,7 +86,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="{% url 'login_vista' %}" method="POST">
+          <form action="{% url 'login_vista' %}" method="POST" onsubmit="return validateLoginForm()">
             {% csrf_token %}
             <div class="mb-3">
               <label for="login-correo" class="form-label">Correo:</label>
@@ -107,7 +107,7 @@
     </div>
   </div>
 
-
+ 
 <!-- PopUp Registrar NUEVO-->
 <div class="modal fade" id="registrarModal" tabindex="-1" aria-labelledby="registrarModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -117,7 +117,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="registroForm"  method="POST" action="{% url 'cliente_agregar' %}">
+        <form id="registroForm" method="POST" action="{% url 'cliente_agregar' %}"  onsubmit="return validateRegistroForm()">
           {% csrf_token %}
           <div class="mb-2 row">
             <div class="col">
@@ -131,7 +131,7 @@
           </div>
           <div class="mb-3">
             <label for="registrar-rut" class="form-label">Rut:</label>
-            <input name="rut" type="number" class="form-control" id="registrar-rut" placeholder="99999999-9" required>
+            <input name="rut" type="text" class="form-control" id="registrar-rut" placeholder="Ingrese rut sin guión" required>
           </div>
           <div class="mb-3">
             <label for="registrar-correo" class="form-label">Correo electrónico:</label>
@@ -149,7 +149,7 @@
             <label for="confirmar-contraseña" class="form-label">Confirmar contraseña:</label>
             <input name="confirmar_contrasena" type="password" class="form-control" id="confirmar-contraseña" required>
           </div>
-          <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mensajeModal">Registrarse</button>
+          <button type="submit" class="btn btn-primary">Registrarse</button>
           <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#loginModal"> Volver</button>
         </form>
       </div>
@@ -159,7 +159,7 @@
 
 
      <!-- PopUp recuperar con correo NUEVO-->
-     <div class="modal fade" id="recuperarModal" tabindex="-1" aria-labelledby="recuperarModalLabel" aria-hidden="true">
+     <div class="modal fade" id="recuperarModal" tabindex="-1" aria-labelledby="recuperarModalLabel" aria-hidden="true" onsubmit="return validateFormRecuperar()"  >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -259,7 +259,7 @@
     {% endblock %}
   
 </div>
-<footer class="text-center text-lg-start text-muted backfooter" style="margin-top:2%;">
+<footer class="text-center text-lg-start text-muted backfooter">
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom redes">
         <div class="me-5 d-none d-lg-block">
             <span>También puede comunicarse y seguir nuestras redes sociales:</span>

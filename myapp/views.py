@@ -75,8 +75,6 @@ def cliente_agregar(request):
         rut = request.POST.get("rut")
         email = request.POST.get("email")
         contrasena = request.POST.get("contrasena")
-        url= request.META.get('HTTP_REFERER')
-        ultima_parte_url=url.split('/')[-1]
         try:
             obj = cliente.objects.create(
                 nombre=nombre,
@@ -86,7 +84,7 @@ def cliente_agregar(request):
                 contrasena=contrasena
             )
             mensaje = "Cuenta creada exitosamente"
-            return render(request, 'myapp/'+ultima_parte_url+'.html', {'mensaje': mensaje})
+            return render(request, 'myapp/index.html', {'mensaje': mensaje})
         
         except IntegrityError as e:
             if 'unique constraint' in str(e).lower():
@@ -94,7 +92,7 @@ def cliente_agregar(request):
             else:
                 mensaje = "Error al ingresar el cliente."
             
-            return render(request, 'myapp/'+ultima_parte_url+'.html', {'mensaje': mensaje})
+            return render(request, 'myapp/index.html', {'mensaje': mensaje})
 
     else:
         mensaje = "Error"
@@ -102,8 +100,7 @@ def cliente_agregar(request):
     
 
 def login_vista(request):
-    url= request.META.get('HTTP_REFERER')
-    ultima_parte_url=url.split('/')[-1]
+
 
     
     if request.method == 'POST':
@@ -118,7 +115,7 @@ def login_vista(request):
             
         except cliente.DoesNotExist:
             mensaje = "Correo electrónico o contraseña incorrectos."
-            return render(request, 'myapp/'+ultima_parte_url+'.html', {'mensaje': mensaje})         # Si el cliente no puede ser autenticado, manda un error
+            return render(request, 'myapp/index.html', {'mensaje': mensaje})         # Si el cliente no puede ser autenticado, manda un error
     return render(request, 'myapp/index.html')
 
 def logout_vista(request):
@@ -138,10 +135,12 @@ def eliminar_cuenta(request):
                 if cliente_obj.contrasena == contrasena:
                     cliente_obj.delete()
                     del request.session['cliente_id']
-                    messages.success(request, 'Cuenta eliminada exitosamente.')
-                    return redirect('index')  # Redirigir a la página de inicio u otra página deseada después de eliminar
+                    mensaje = "Cuenta eliminada exitosamente"
+                    return render(request, 'myapp/index.html', {'mensaje': mensaje})  # Redirigir a la página de inicio
+    
                 else:
-                    messages.error(request, 'Contraseña incorrecta. La cuenta no ha sido eliminada.')
+                    mensaje = "Contraseña incorrecta. La cuenta no ha sido eliminada."
+                    return render(request, 'myapp/eliminar.html', {'mensaje': mensaje})
             except cliente.DoesNotExist:
                 messages.error(request, 'No se encontró el cliente.')
         else:
