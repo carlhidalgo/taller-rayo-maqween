@@ -26,8 +26,11 @@ SECRET_KEY = 'django-insecure-jw1l9s11t4twvphcq0qs45n-(f@p+g0s4shl*634mp8t7y@w*h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', 'localhost']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app']
 
+
+# Static site url, used when we need absolute url but lack request object, e.g. in email sending.
+SITE_URL = os.getenv('SITE_URL', 'http://localhost:8000')
 # Application definition
 
 INSTALLED_APPS = [
