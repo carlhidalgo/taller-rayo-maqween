@@ -6,7 +6,11 @@
         "use": "@vercel/python"
       }
     ],
-    "routes": [
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/staticfiles/$1"
+    },
       {
         "src": "/(.*)",
         "dest": "vercel_app.py"
