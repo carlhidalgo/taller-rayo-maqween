@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'vercelDploy.urls'
+ROOT_URLCONF = 'vercelDeploy.urls'
 
 TEMPLATES = [
     {
