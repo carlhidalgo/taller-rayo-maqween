@@ -1,4 +1,4 @@
 django>=3.2,<4.0
 whitenoise>=6.8.2
-
+psycopg2-binary
 
