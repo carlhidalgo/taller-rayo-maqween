@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -91,6 +92,7 @@ DATABASES = {
         'HOST': os.environ.get('SUPABASE_HOST'),
         'PASSWORD': os.environ.get('SUPABASE_PASSWORD'),
         'PORT': '6543',
+        'pool_mode': 'transaction',
         "OPTIONS": {
             "sslmode": "verify-full",
             "sslrootcert": os.path.join(BASE_DIR, "prod-ca-2021.crt"),
@@ -98,6 +100,9 @@ DATABASES = {
     }
 }
 
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
